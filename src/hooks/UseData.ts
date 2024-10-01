@@ -29,7 +29,7 @@ export interface fetchResponse<T> {
       });
     return () => controller.abort();
   }, []);
-  return {data, error, loading }
+  return {data, error, loading}
 
  }
 
