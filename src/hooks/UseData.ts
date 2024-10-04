@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import apiClient from "../Services/api-client";
-import { CanceledError } from "axios";
+import { AxiosRequestConfig, CanceledError } from "axios";
 
 
 
@@ -9,7 +9,7 @@ export interface fetchResponse<T> {
     results:T[]
 }
 
- const UseData=<T>(endpoint:string)=>{
+ const UseData=<T>(endpoint:string,requestConfig?:AxiosRequestConfig,deps?:any[])=>{
     const [data, setData] = useState<T[]>([]);
   const [error, setError] = useState("");
   const [loading, isLoading] = useState(false);
@@ -17,7 +17,7 @@ export interface fetchResponse<T> {
     const controller = new AbortController();
     isLoading(true);
     apiClient
-      .get<fetchResponse<T>>(endpoint, { signal: controller.signal })
+      .get<fetchResponse<T>>(endpoint, { signal: controller.signal,...requestConfig })
       .then((res) => {
         setData(res.data.results);
         isLoading(false);
@@ -28,7 +28,7 @@ export interface fetchResponse<T> {
         isLoading(false);
       });
     return () => controller.abort();
-  }, []);
+  },deps? [...deps]:[]);
   return {data, error, loading}
 
  }
