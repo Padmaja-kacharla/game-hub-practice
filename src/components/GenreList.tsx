@@ -23,7 +23,7 @@ const GenreList = ({ onselectedGenre, selectedGenre }: Props) => {
     <div>
       <List>
         {data.map((genre) => (
-          <ListItem key={genre.id} paddingY="5px">
+          <ListItem key={genre.id} paddingY="5px" overflow="hidden">
             <HStack>
               <Image
                 src={getCroppedImage(genre.image_background)}
