@@ -16,10 +16,10 @@ interface Props {
 }
 
 const GenreList = ({ onselectedGenre, selectedGenre }: Props) => {
-  const { data, loading, error } = UseGenre();
+  const { data, isLoading, error } = UseGenre();
   if (error) return null;
 
-  if (loading) return <Spinner />;
+  if (isLoading) return <Spinner />;
   return (
     <>
       <Heading fontSize="2xl" marginBottom={3}>
